@@ -64,7 +64,7 @@ function sortFeaturedFirst(listings: Listing[]): Listing[] {
 }
 
 export async function fetchListingServer(id: string): Promise<Listing | null> {
-  const snap = await adminDb.collection(LISTINGS).doc(id).get();
+  const snap = await adminDb().collection(LISTINGS).doc(id).get();
   if (!snap.exists) return null;
   return parseListing(snap);
 }
@@ -72,7 +72,7 @@ export async function fetchListingServer(id: string): Promise<Listing | null> {
 export async function fetchRecentListingsServer(
   max = 20,
 ): Promise<Listing[]> {
-  const snap = await adminDb
+  const snap = await adminDb()
     .collection(LISTINGS)
     .where('status', '==', 'active')
     .orderBy('createdAt', 'desc')
@@ -85,7 +85,7 @@ export async function fetchFeaturedListingsServer(
   max = 10,
 ): Promise<Listing[]> {
   try {
-    const snap = await adminDb
+    const snap = await adminDb()
       .collection(LISTINGS)
       .where('status', '==', 'active')
       .where('featuredUntil', '>', Timestamp.now())
@@ -105,7 +105,7 @@ export async function fetchListingsByCategoryServer(
   categoryId: string,
   max = 40,
 ): Promise<Listing[]> {
-  const snap = await adminDb
+  const snap = await adminDb()
     .collection(LISTINGS)
     .where('categoryId', '==', categoryId)
     .where('status', '==', 'active')
@@ -119,7 +119,7 @@ export async function fetchListingsBySellerServer(
   sellerId: string,
   max = 60,
 ): Promise<Listing[]> {
-  const snap = await adminDb
+  const snap = await adminDb()
     .collection(LISTINGS)
     .where('sellerId', '==', sellerId)
     .where('status', '==', 'active')
@@ -131,7 +131,7 @@ export async function fetchListingsBySellerServer(
 
 export async function fetchAllActiveListingIds(): Promise<string[]> {
   // Document IDs come with the doc snapshot — no need to select fields.
-  const snap = await adminDb
+  const snap = await adminDb()
     .collection(LISTINGS)
     .where('status', '==', 'active')
     .select() // select nothing, only get doc IDs

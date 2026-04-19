@@ -18,8 +18,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Verify Firebase ID token and that the caller owns the listing.
-    const decoded = await adminAuth.verifyIdToken(body.idToken);
-    const listingSnap = await adminDb
+    const decoded = await adminAuth().verifyIdToken(body.idToken);
+    const listingSnap = await adminDb()
       .collection('listings')
       .doc(body.listingId)
       .get();

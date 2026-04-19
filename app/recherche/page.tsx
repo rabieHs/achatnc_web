@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useEffect, useState, useTransition } from 'react';
+import { Suspense, useEffect, useState, useTransition } from 'react';
 import { Search as SearchIcon } from 'lucide-react';
 import { searchListings } from '@/lib/listings';
 import type { Listing } from '@/lib/types';
@@ -10,6 +10,18 @@ import { Input } from '@/components/ui/input';
 import { NC_CITIES_MAJOR } from '@/lib/cities';
 
 export default function SearchPage() {
+  return (
+    <Suspense fallback={
+      <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6">
+        <div className="h-11 w-full animate-pulse rounded-full bg-muted" />
+      </div>
+    }>
+      <SearchPageInner />
+    </Suspense>
+  );
+}
+
+function SearchPageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const q = searchParams.get('q') ?? '';

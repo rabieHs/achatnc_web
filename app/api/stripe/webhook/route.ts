@@ -4,9 +4,7 @@ import type Stripe from 'stripe';
 import { adminDb } from '@/lib/firebase/admin';
 import { BOOST_DURATION_DAYS, getStripe } from '@/lib/stripe';
 
-export const config = {
-  api: { bodyParser: false },
-};
+export const runtime = 'nodejs';
 
 export async function POST(req: NextRequest) {
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -40,7 +38,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const listingRef = adminDb.collection('listings').doc(listingId);
+    const listingRef = adminDb().collection('listings').doc(listingId);
     const listingSnap = await listingRef.get();
     if (!listingSnap.exists) {
       console.warn('webhook: listing not found', listingId);
@@ -64,7 +62,7 @@ export async function POST(req: NextRequest) {
       updatedAt: FieldValue.serverTimestamp(),
     });
 
-    await adminDb.collection('boostPurchases').add({
+    await adminDb().collection('boostPurchases').add({
       listingId,
       userId,
       productId,

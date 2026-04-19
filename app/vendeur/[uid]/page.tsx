@@ -14,7 +14,7 @@ interface Props {
 }
 
 async function fetchSeller(uid: string): Promise<AppUser | null> {
-  const snap = await adminDb.collection('users').doc(uid).get();
+  const snap = await adminDb().collection('users').doc(uid).get();
   if (!snap.exists) return null;
   const d = snap.data() ?? {};
   return {
