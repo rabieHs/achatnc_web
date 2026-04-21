@@ -217,6 +217,7 @@ export default async function ListingDetailPage({ params }: Props) {
                 listingId={listing.id}
                 sellerId={listing.sellerId}
                 featuredUntil={listing.featuredUntil}
+                images={listing.images}
               />
               <FavoriteButton listingId={listing.id} variant="detail" />
             </div>
