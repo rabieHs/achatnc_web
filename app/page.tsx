@@ -22,8 +22,8 @@ export default async function HomePage() {
       <section className="relative overflow-hidden border-b bg-gradient-to-b from-primary/10 via-primary/5 to-transparent">
         <div className="mx-auto w-full max-w-4xl px-4 py-14 text-center sm:px-6 md:py-20">
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
-            La place de marché de{' '}
-            <span className="text-primary">Nouvelle-Calédonie</span>
+            Petites annonces et ventes{' '}
+            <span className="text-primary">entre particuliers</span>
           </h1>
           <p className="mx-auto mt-3 max-w-2xl text-muted-foreground md:text-lg">
             Achetez et vendez près de chez vous. Véhicules, immobilier,
