@@ -6,7 +6,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { toast } from 'sonner';
 import { db } from '@/lib/firebase/client';
 import { useAuth } from '@/lib/auth-context';
-import { getOrCreateConversation, sendMessage } from '@/lib/messaging';
+import { getOrCreateConversation } from '@/lib/messaging';
 import { Button } from '@/components/ui/button';
 
 const INITIAL_MESSAGE =
@@ -48,17 +48,10 @@ export function ContactSellerButton(props: Props) {
         listingTitle: props.listingTitle,
         listingThumbnail: props.listingThumbnail,
       });
-      // Send pre-filled message if the conversation is brand new.
-      // We can't easily tell "is new" without another read — so we always
-      // send it if no messages exist. Simplest: just route and let the user
-      // type. If you prefer auto-send, uncomment below:
-      await sendMessage({
-        conversationId,
-        senderId: user.uid,
-        receiverId: props.sellerId,
-        text: INITIAL_MESSAGE,
-      }).catch(() => {});
-      router.push(`/messages/${conversationId}`);
+      // Pre-fill the input so the user can edit or send as-is.
+      router.push(
+        `/messages/${conversationId}?prefill=${encodeURIComponent(INITIAL_MESSAGE)}`,
+      );
     } catch (err) {
       console.error(err);
       toast.error('Erreur');

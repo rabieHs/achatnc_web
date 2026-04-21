@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { Send, ArrowLeft, Check, CheckCheck } from 'lucide-react';
 import { db } from '@/lib/firebase/client';
@@ -45,12 +45,22 @@ function parseConversation(id: string, d: Record<string, unknown>): Conversation
 }
 
 export default function ChatPage() {
+  return (
+    <Suspense fallback={<div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">Chargement...</div>}>
+      <ChatPageInner />
+    </Suspense>
+  );
+}
+
+function ChatPageInner() {
   const { conversationId } = useParams<{ conversationId: string }>();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const prefill = searchParams.get('prefill');
   const { user, loading: authLoading } = useAuth();
   const [conversation, setConversation] = useState<Conversation | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [text, setText] = useState('');
+  const [text, setText] = useState(prefill ?? '');
   const [sending, setSending] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 

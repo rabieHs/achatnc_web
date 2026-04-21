@@ -290,25 +290,52 @@ export default function PublishPage() {
         <section className="space-y-4">
           <div className="space-y-1.5">
             <Label htmlFor="location">Ville</Label>
-            <select
+            <Input
               id="location"
               required
+              list="nc-cities"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
-            >
-              <option value="">Choisir une ville</option>
+              placeholder="Choisir ou taper une ville"
+            />
+            <datalist id="nc-cities">
               {NC_CITIES.map((c) => (
-                <option key={c} value={c}>{c}</option>
+                <option key={c} value={c} />
               ))}
-            </select>
+            </datalist>
           </div>
           <div className="space-y-1.5">
             <Label>Position sur la carte (optionnel)</Label>
             <p className="text-xs text-muted-foreground">
               Cliquez sur la carte pour indiquer la position exacte. Un cercle d&apos;environ 2 km sera affiché aux acheteurs.
             </p>
-            <LocationMapPicker value={latLng} onChange={setLatLng} />
+            <LocationMapPicker
+              value={latLng}
+              onChange={async (v) => {
+                setLatLng(v);
+                try {
+                  const res = await fetch(
+                    `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${v.lat}&lon=${v.lng}&accept-language=fr`,
+                    { headers: { 'Accept-Language': 'fr' } },
+                  );
+                  if (!res.ok) return;
+                  const data = (await res.json()) as {
+                    address?: Record<string, string>;
+                  };
+                  const addr = data.address ?? {};
+                  const city =
+                    addr.city ||
+                    addr.town ||
+                    addr.village ||
+                    addr.municipality ||
+                    addr.county ||
+                    '';
+                  if (city) setLocation(city);
+                } catch (err) {
+                  console.warn('reverse geocode failed', err);
+                }
+              }}
+            />
           </div>
         </section>
 
