@@ -13,6 +13,7 @@ import {
   type QueryDocumentSnapshot,
 } from 'firebase/firestore';
 import { db } from './firebase/client';
+import { normalizeForSearch } from './search';
 import type { Listing } from './types';
 import { toDate, toDateOrNull } from './types';
 
@@ -121,7 +122,7 @@ export async function searchListings(
   let q = query(
     collection(db, LISTINGS),
     where('status', '==', 'active'),
-    where('searchKeywords', 'array-contains', keyword.toLowerCase()),
+    where('searchKeywords', 'array-contains', normalizeForSearch(keyword)),
   );
   if (city) q = query(q, where('location', '==', city));
   q = query(q, qLimit(max));

@@ -40,16 +40,8 @@ export interface CreateListingInput {
   files: File[];
 }
 
-export function generateSearchKeywords(title: string): string[] {
-  return Array.from(
-    new Set(
-      title
-        .toLowerCase()
-        .split(/\s+/)
-        .filter((w) => w.length > 1),
-    ),
-  );
-}
+export { generateSearchKeywords } from './search';
+import { generateSearchKeywords as _genKw } from './search';
 
 export async function createListing(
   input: CreateListingInput,
@@ -68,7 +60,7 @@ export async function createListing(
     thumbnailUrl: null,
     createdAt: now,
     updatedAt: now,
-    searchKeywords: generateSearchKeywords(rest.title),
+    searchKeywords: _genKw(rest.title),
   });
 
   // Upload images in parallel
@@ -116,7 +108,7 @@ export async function updateListing(
   }>,
 ): Promise<void> {
   const payload: Record<string, unknown> = { ...patch, updatedAt: serverTimestamp() };
-  if (patch.title) payload.searchKeywords = generateSearchKeywords(patch.title);
+  if (patch.title) payload.searchKeywords = _genKw(patch.title);
   await updateDoc(doc(db, LISTINGS, listingId), payload);
 }
 
