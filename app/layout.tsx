@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     template: '%s · achats.nc',
   },
   description:
-    "Achetez et vendez près de chez vous en Nouvelle-Calédonie. Véhicules, immobilier, électronique et bien plus.",
+    "Vente entre particuliers en Nouvelle-Calédonie. Véhicules, immobilier, électronique et bien plus.",
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
