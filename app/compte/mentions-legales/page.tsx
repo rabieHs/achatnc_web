@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Mentions légales',
+  title: 'Mentions légales | achats.nc',
+  description:
+    'Conditions générales et mentions légales de achats.nc, plateforme de vente entre particuliers en Nouvelle-Calédonie, fondée par Bogdan Puel.',
 };
 
 export default function MentionsLegalesPage() {
@@ -174,6 +176,9 @@ export default function MentionsLegalesPage() {
       <P>Tout litige relatif à leur validité, interprétation ou exécution relèvera des juridictions territorialement compétentes du ressort de l&rsquo;éditeur, sous réserve des règles impératives contraires.</P>
 
       <H2>PARTIE 2 — MENTIONS LÉGALES</H2>
+      <H3>Éditeur et fondateur</H3>
+      <P>Le site internet achats.nc est édité sous la responsabilité de Mr. Bogdan Puel, fondateur de la plateforme achats.nc.</P>
+      <P>achats.nc est une plateforme de mise en relation entre particuliers en Nouvelle-Calédonie.</P>
 
       <H3>Contact</H3>
       <P><a className="text-primary hover:underline" href="mailto:contact@achats.nc">contact@achats.nc</a></P>
