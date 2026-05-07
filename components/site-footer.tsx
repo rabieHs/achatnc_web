@@ -24,7 +24,7 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
-              <Link href="/compte/mentions-legales" className="hover:text-foreground">
+              <Link href="/mentions-legales" className="hover:text-foreground">
                 Mentions légales
               </Link>
             </li>
