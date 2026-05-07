@@ -7,7 +7,7 @@ export function SiteFooter() {
         <div>
           <h3 className="text-base font-bold">achats.nc</h3>
           <p className="mt-2 text-sm text-muted-foreground">
-            Vente entre particuliers en Nouvelle-Calédonie
+            Vente entre particuliers en Nouvelle-Calédonie.
           </p>
         </div>
         <div>
