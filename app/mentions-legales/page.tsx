@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     'Conditions générales et mentions légales de achats.nc, plateforme de vente entre particuliers en Nouvelle-Calédonie, fondée par Bogdan Puel.',
   alternates: {
-    canonical: 'https://www.achats.nc/mentions-legales',
+    canonical: 'https://achats.nc/mentions-legales',
   },
 };
 
