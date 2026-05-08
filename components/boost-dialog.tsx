@@ -49,7 +49,7 @@ export function BoostDialog({ listingId, featuredUntil }: Props) {
         setLoading(null);
         return;
       }
-      window.location.href = data.url;
+      window.location.assign(data.url);
     } catch (err) {
       console.error(err);
       toast.error('Erreur');
