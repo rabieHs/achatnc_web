@@ -1,8 +1,7 @@
 'use client';
 
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Suspense, useEffect, useState, useTransition } from 'react';
-import { Search as SearchIcon } from 'lucide-react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { searchListings } from '@/lib/listings';
 import type { Listing } from '@/lib/types';
 import { ListingRow } from '@/components/listing-row';
@@ -27,9 +26,10 @@ function SearchPageInner() {
   const searchParams = useSearchParams();
   const q = searchParams.get('q') ?? '';
   const city = searchParams.get('city');
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const [results, setResults] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(false);
-  const [, startTransition] = useTransition();
 
   useEffect(() => {
     if (!q) return;
@@ -53,18 +53,14 @@ function SearchPageInner() {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
-    const trimmed = String(formData.get('q') ?? '').trim();
+    const trimmed = inputRef.current?.value.trim() ?? '';
 
     const params = new URLSearchParams();
     if (trimmed) params.set('q', trimmed);
     if (city) params.set('city', city);
 
     const queryString = params.toString();
-
-    startTransition(() => {
-      router.push(queryString ? `/recherche?${queryString}` : '/recherche');
-    });
+    router.push(queryString ? `/recherche?${queryString}` : '/recherche');
   }
 
   function selectCity(next: string | null) {
@@ -83,17 +79,16 @@ function SearchPageInner() {
         onSubmit={onSubmit}
         className="mx-auto flex w-full items-center gap-2 rounded-full border border-border bg-muted p-1.5 shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20"
       >
-        <SearchIcon className="ml-3 h-5 w-5 flex-shrink-0 text-muted-foreground" />
-
         <input
           key={q}
-          type="search"
+          ref={inputRef}
+          type="text"
           name="q"
           defaultValue={q}
           autoFocus
           enterKeyHint="search"
           placeholder="Rechercher..."
-          className="h-11 min-w-0 flex-1 bg-transparent text-sm outline-none"
+          className="h-11 min-w-0 flex-1 bg-transparent px-4 text-sm outline-none"
         />
 
         <button
@@ -136,8 +131,7 @@ function SearchPageInner() {
       <div className="mt-6">
         {!q ? (
           <div className="py-16 text-center text-muted-foreground">
-            <SearchIcon className="mx-auto h-10 w-10 opacity-50" />
-            <p className="mt-3 text-sm">
+            <p className="text-sm">
               Tapez un mot-clé pour trouver ce que vous cherchez
             </p>
           </div>
