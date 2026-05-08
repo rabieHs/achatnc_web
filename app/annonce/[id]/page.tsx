@@ -67,7 +67,7 @@ export default async function ListingDetailPage({ params }: Props) {
       {images && images.length > 1 ? (
         <>
           {/* Mobile gallery */}
-          <div className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-3 md:hidden">
+          <div className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-3 [-ms-overflow-style:none] [scrollbar-width:none] md:hidden [&::-webkit-scrollbar]:hidden">
             {images.map((img, i) => (
               <div
                 key={img.path ?? i}
