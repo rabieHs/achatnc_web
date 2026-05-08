@@ -67,7 +67,7 @@ export default function DataDeletionPage() {
     <main className="flex min-h-[60vh] justify-center px-4 py-10 sm:px-6">
       <div className="w-full max-w-2xl">
         <div className="rounded-2xl border bg-background p-5 shadow-sm sm:p-8">
-          <h1 className="text-2xl font-bold tracking-tight">
+          <h1 className="text-center text-2xl font-bold tracking-tight sm:text-left">
             Suppression des données
           </h1>
 
@@ -100,17 +100,17 @@ export default function DataDeletionPage() {
 
           <div className="mt-8 rounded-xl border bg-muted/30 p-4">
             {requested ? (
-              <p className="text-sm font-medium">
+              <p className="text-center text-sm font-medium">
                 Votre demande de suppression a été enregistrée.
               </p>
             ) : (
-              <div className="flex w-full justify-center sm:justify-start">
+              <div className="flex w-full justify-center">
                 <Button
                   type="button"
                   variant="destructive"
                   disabled={submitting}
                   onClick={requestDeletion}
-                  className="w-full sm:w-auto"
+                  className="h-auto min-h-10 w-full max-w-md whitespace-normal px-4 py-3 text-center leading-snug"
                 >
                   {submitting
                     ? 'Demande en cours...'
