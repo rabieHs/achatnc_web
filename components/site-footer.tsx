@@ -10,12 +10,13 @@ export function SiteFooter() {
             Vente entre particuliers en Nouvelle-Calédonie.
           </p>
         </div>
+
         <div>
           <h4 className="text-sm font-semibold">Liens</h4>
           <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
             <li>
-              <Link href="/publier" className="hover:text-foreground">
-                Déposer une annonce
+              <Link href="/suppression-donnees" className="hover:text-foreground">
+                Suppression des données
               </Link>
             </li>
             <li>
@@ -30,6 +31,7 @@ export function SiteFooter() {
             </li>
           </ul>
         </div>
+
         <div>
           <h4 className="text-sm font-semibold">Contact</h4>
           <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
@@ -41,6 +43,7 @@ export function SiteFooter() {
           </ul>
         </div>
       </div>
+
       <div className="border-t">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 text-xs text-muted-foreground sm:px-6">
           <span>© {new Date().getFullYear()} achats.nc</span>
