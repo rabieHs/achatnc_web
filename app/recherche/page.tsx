@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { searchListings } from '@/lib/listings';
 import type { Listing } from '@/lib/types';
 import { ListingRow } from '@/components/listing-row';
@@ -12,7 +12,7 @@ export default function SearchPage() {
     <Suspense
       fallback={
         <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6">
-          <div className="h-14 w-full animate-pulse rounded-full bg-muted" />
+          <div className="mx-auto h-14 w-full max-w-2xl animate-pulse rounded-full bg-muted" />
         </div>
       }
     >
@@ -26,7 +26,6 @@ function SearchPageInner() {
   const searchParams = useSearchParams();
   const q = searchParams.get('q') ?? '';
   const city = searchParams.get('city');
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const [results, setResults] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(false);
@@ -50,19 +49,6 @@ function SearchPageInner() {
     };
   }, [q, city]);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    const trimmed = inputRef.current?.value.trim() ?? '';
-
-    const params = new URLSearchParams();
-    if (trimmed) params.set('q', trimmed);
-    if (city) params.set('city', city);
-
-    const queryString = params.toString();
-    router.push(queryString ? `/recherche?${queryString}` : '/recherche');
-  }
-
   function selectCity(next: string | null) {
     const params = new URLSearchParams();
 
@@ -76,24 +62,25 @@ function SearchPageInner() {
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6">
       <form
-        onSubmit={onSubmit}
-        className="mx-auto flex w-full items-center gap-2 rounded-full border border-border bg-muted p-1.5 shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20"
+        action="/recherche"
+        method="get"
+        className="mx-auto flex w-full max-w-2xl items-center gap-2 overflow-hidden rounded-full border border-border bg-card p-1.5 shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20"
       >
         <input
-          key={q}
-          ref={inputRef}
           type="text"
           name="q"
           defaultValue={q}
           autoFocus
           enterKeyHint="search"
-          placeholder="Rechercher..."
-          className="h-11 min-w-0 flex-1 bg-transparent px-4 text-sm outline-none"
+          placeholder="Rechercher de nouveau..."
+          className="h-11 min-w-0 flex-1 bg-transparent px-4 text-sm outline-none sm:text-base"
         />
+
+        {city ? <input type="hidden" name="city" value={city} /> : null}
 
         <button
           type="submit"
-          className="h-11 flex-shrink-0 rounded-full bg-primary px-4 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90 sm:px-6 sm:text-sm"
+          className="h-11 shrink-0 rounded-full bg-primary px-4 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 sm:px-6"
         >
           Rechercher
         </button>
