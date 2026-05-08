@@ -32,18 +32,18 @@ export default async function HomePage() {
 
           <form
             action="/recherche"
-            className="mx-auto mt-8 flex max-w-2xl items-center gap-2 rounded-full border border-border bg-card p-1.5 shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20"
+            className="mx-auto mt-8 flex w-full max-w-2xl items-center gap-2 overflow-hidden rounded-full border border-border bg-card p-1.5 shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20"
           >
             <Search className="ml-3 h-5 w-5 flex-shrink-0 text-muted-foreground" />
             <input
               type="text"
               name="q"
               placeholder="Que recherchez-vous ?"
-              className="h-11 flex-1 bg-transparent text-sm outline-none"
+              className="h-11 min-w-0 flex-1 bg-transparent text-sm outline-none"
             />
             <button
               type="submit"
-              className="h-11 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              className="h-11 shrink-0 rounded-full bg-primary px-4 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 sm:px-6"
             >
               Rechercher
             </button>
