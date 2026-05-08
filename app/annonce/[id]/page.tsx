@@ -65,26 +65,57 @@ export default async function ListingDetailPage({ params }: Props) {
     <article className="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6">
       {/* Gallery */}
       {images && images.length > 1 ? (
-        <div className="grid h-[420px] grid-cols-4 grid-rows-2 gap-2 overflow-hidden rounded-2xl md:h-[480px]">
-          <div className="relative col-span-4 row-span-2 overflow-hidden rounded-l-2xl bg-muted md:col-span-2">
-            <Image
-              src={images[0].url}
-              alt={listing.title}
-              fill
-              className="object-cover"
-              priority
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
+        <>
+          {/* Mobile gallery */}
+          <div className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-3 md:hidden">
+            {images.map((img, i) => (
+              <div
+                key={img.path ?? i}
+                className="relative aspect-[4/3] w-[85vw] flex-none snap-center overflow-hidden rounded-2xl bg-muted"
+              >
+                <Image
+                  src={img.url}
+                  alt={i === 0 ? listing.title : `${listing.title} - photo ${i + 1}`}
+                  fill
+                  className="object-cover"
+                  priority={i === 0}
+                  sizes="85vw"
+                />
+                <div className="absolute bottom-2 right-2 rounded-full bg-black/60 px-2 py-1 text-xs font-medium text-white">
+                  {i + 1}/{images.length}
+                </div>
+              </div>
+            ))}
           </div>
-          {images.slice(1, 5).map((img, i) => (
-            <div
-              key={img.path ?? i}
-              className="relative hidden overflow-hidden bg-muted md:block"
-            >
-              <Image src={img.url} alt="" fill className="object-cover" sizes="25vw" />
+
+          {/* Desktop gallery */}
+          <div className="hidden h-[480px] grid-cols-4 grid-rows-2 gap-2 overflow-hidden rounded-2xl md:grid">
+            <div className="relative col-span-2 row-span-2 overflow-hidden rounded-l-2xl bg-muted">
+              <Image
+                src={images[0].url}
+                alt={listing.title}
+                fill
+                className="object-cover"
+                priority
+                sizes="50vw"
+              />
             </div>
-          ))}
-        </div>
+            {images.slice(1, 5).map((img, i) => (
+              <div
+                key={img.path ?? i}
+                className="relative overflow-hidden bg-muted"
+              >
+                <Image
+                  src={img.url}
+                  alt={`${listing.title} - photo ${i + 2}`}
+                  fill
+                  className="object-cover"
+                  sizes="25vw"
+                />
+              </div>
+            ))}
+          </div>
+        </>
       ) : (
         <div className="relative mx-auto aspect-[4/3] w-full max-w-3xl overflow-hidden rounded-2xl bg-muted">
           {images?.[0] ? (
