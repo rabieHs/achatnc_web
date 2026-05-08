@@ -166,9 +166,22 @@ export default function MentionsLegalesPage() {
       </Ul>
       <P>En tout état de cause, sauf faute lourde ou dolosive, la responsabilité totale de la plateforme, toutes causes confondues, est limitée au montant effectivement payé par l&rsquo;utilisateur à la plateforme au cours des douze derniers mois.</P>
 
-      <H3>Article 18 — Données personnelles</H3>
-      <P>La plateforme peut collecter et traiter des données nécessaires au fonctionnement du service, à la sécurité, à la modération, à la prévention de la fraude, à la gestion des comptes et au traitement des signalements.</P>
-      <P>Ces traitements sont détaillés dans la politique de confidentialité du site.</P>
+            <H3>Article 18 — Données personnelles et suppression du compte</H3>
+      <P>
+        La plateforme peut collecter et traiter des données nécessaires au fonctionnement du service, à la sécurité, à la modération, à la prévention de la fraude, à la gestion des comptes, au traitement des signalements et à la conservation des preuves utiles.
+      </P>
+      <P>
+        L&rsquo;utilisateur peut demander la suppression de son compte et des données associées depuis la page suivante&nbsp;:{' '}
+        <a className="text-primary hover:underline" href="/suppression-donnees">
+          suppression des données
+        </a>.
+      </P>
+      <P>
+        Après validation de la demande, le compte peut être désactivé ou rendu inaccessible. Certaines données strictement nécessaires peuvent être conservées temporairement pendant une durée maximale d&rsquo;un mois, notamment pour des raisons de sécurité, de prévention des abus, de traitement des litiges, de preuve ou de respect d&rsquo;obligations légales.
+      </P>
+      <P>
+        À l&rsquo;issue de ce délai, les données concernées sont supprimées ou anonymisées, sauf obligation légale contraire ou nécessité de conservation liée à un litige, une fraude, une enquête ou une demande d&rsquo;autorité compétente.
+      </P>
 
       <H3>Article 19 — Modification</H3>
       <P>La plateforme peut modifier les présentes à tout moment.</P>
